@@ -1,0 +1,18 @@
+{
+  "demo_slots": [
+    { "date": "2026-04-10", "time": "10:00 AM", "type": "Live Demo", "available": true },
+    { "date": "2026-04-10", "time": "2:00 PM", "type": "Live Demo", "available": true },
+    { "date": "2026-04-11", "time": "11:00 AM", "type": "Live Demo", "available": false },
+    { "date": "2026-04-11", "time": "3:00 PM", "type": "Live Demo", "available": true },
+    { "date": "2026-04-14", "time": "9:00 AM", "type": "Live Demo", "available": true },
+    { "date": "2026-04-14", "time": "1:00 PM", "type": "Live Demo", "available": true }
+  ],
+  "callback_slots": [
+    { "date": "2026-04-09", "time": "10:00 AM", "available": true },
+    { "date": "2026-04-09", "time": "3:00 PM", "available": true },
+    { "date": "2026-04-10", "time": "9:00 AM", "available": true },
+    { "date": "2026-04-10", "time": "4:00 PM", "available": false },
+    { "date": "2026-04-11", "time": "10:00 AM", "available": true },
+    { "date": "2026-04-14", "time": "2:00 PM", "available": true }
+  ]
+}

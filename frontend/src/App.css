@@ -1,0 +1,360 @@
+/* ===== Global ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f0f4f8;
+  color: #1a202c;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Phone Entry Screen ===== */
+.phone-entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f4c81 0%, #1a6fb5 50%, #2196f3 100%);
+}
+
+.phone-entry-card {
+  background: white;
+  border-radius: 16px;
+  padding: 48px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.logo h1 {
+  font-size: 2.2rem;
+  color: #0f4c81;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo .tagline {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+.phone-entry-card h2 {
+  font-size: 1.3rem;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.phone-entry-card .description {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.phone-entry-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.phone-entry-card input {
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.phone-entry-card input:focus {
+  border-color: #2196f3;
+}
+
+.phone-entry-card button {
+  padding: 14px;
+  background: #0f4c81;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.phone-entry-card button:hover:not(:disabled) {
+  background: #1a6fb5;
+}
+
+.phone-entry-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.sample-phones {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.sample-phones p {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.sample-phones span {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 4px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #0f4c81;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sample-phones span:hover {
+  background: #e2e8f0;
+}
+
+/* ===== Chat Window ===== */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.chat-header {
+  background: #0f4c81;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.chat-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.pharmacy-badge {
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.pharmacy-badge.new-lead {
+  background: rgba(255, 193, 7, 0.3);
+}
+
+.end-call-btn {
+  margin-left: auto;
+  padding: 6px 16px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.end-call-btn:hover {
+  background: #b91c1c;
+}
+
+/* ===== Messages Area ===== */
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 80%;
+}
+
+.message-row.agent {
+  align-self: flex-start;
+}
+
+.message-row.user {
+  align-self: flex-end;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.agent-avatar {
+  background: #0f4c81;
+  color: white;
+}
+
+.user-avatar {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.agent-bubble {
+  background: #f1f5f9;
+  color: #1a202c;
+  border-bottom-left-radius: 4px;
+}
+
+.user-bubble {
+  background: #0f4c81;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+/* ===== Action Banner ===== */
+.action-banners {
+  margin-left: 42px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.action-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.action-icon {
+  font-weight: 700;
+  color: #059669;
+}
+
+/* ===== Typing Indicator ===== */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px;
+  margin-left: 42px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: #94a3b8;
+  border-radius: 50%;
+  animation: typing 1.4s ease-in-out infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* ===== Chat Input ===== */
+.chat-input {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input input:focus {
+  border-color: #2196f3;
+}
+
+.chat-input button {
+  padding: 14px 28px;
+  background: #0f4c81;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chat-input button:hover:not(:disabled) {
+  background: #1a6fb5;
+}
+
+.chat-input button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

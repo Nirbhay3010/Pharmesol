@@ -1,16 +1,19 @@
 import requests
+import structlog
 
-API_URL = "https://67e14fb758cc6bf785254550.mockapi.io/pharmacies"
+from backend.config import settings
+
+logger = structlog.get_logger()
 
 
 def lookup_by_phone(phone: str) -> dict | None:
     """Look up a pharmacy by caller phone number from the mock API."""
     try:
-        response = requests.get(API_URL, timeout=10)
+        response = requests.get(settings.pharmacy_api_url, timeout=settings.pharmacy_api_timeout)
         response.raise_for_status()
         pharmacies = response.json()
     except (requests.RequestException, ValueError):
-        print("[WARN] Could not reach pharmacy API — proceeding as unknown caller.")
+        logger.warning("pharmacy_lookup.failed", phone=phone)
         return None
 
     for pharmacy in pharmacies:

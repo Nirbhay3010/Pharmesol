@@ -1,0 +1,9 @@
+openai
+requests
+python-dotenv
+fastapi
+uvicorn[standard]
+pydantic>=2.0
+pydantic-settings>=2.0
+structlog
+tenacity

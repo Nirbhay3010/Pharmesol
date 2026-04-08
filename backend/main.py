@@ -1,8 +1,9 @@
-import sys
 from dotenv import load_dotenv
-from pharmacy_lookup import lookup_by_phone
-from prompts import build_system_prompt
-from agent import SalesAgent
+
+from backend.logging_config import setup_logging
+from backend.pharmacy_lookup import lookup_by_phone
+from backend.prompts import build_system_prompt
+from backend.agent import SalesAgent
 
 DEFAULT_PHONE = "+1-555-123-4567"  # HealthFirst Pharmacy
 EXIT_PHRASES = {"bye", "end call", "hang up", "goodbye", "exit", "quit"}
@@ -10,6 +11,7 @@ EXIT_PHRASES = {"bye", "end call", "hang up", "goodbye", "exit", "quit"}
 
 def main():
     load_dotenv()
+    setup_logging()
 
     print("=" * 60)
     print("  Pharmesol Inbound Sales Agent — Text Simulation")
@@ -35,7 +37,7 @@ def main():
 
     # Step 3: Build system prompt and initialize agent
     system_prompt = build_system_prompt(pharmacy)
-    agent = SalesAgent(system_prompt)
+    agent = SalesAgent(system_prompt, session_id="cli")
 
     # Step 4: Generate and display the opening greeting
     print("\n" + "-" * 60)
