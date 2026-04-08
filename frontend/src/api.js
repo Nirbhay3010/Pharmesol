@@ -11,43 +11,62 @@ export async function startSession(phone) {
 }
 
 export async function streamMessage(sessionId, message, onToken, onDone, onRetract) {
-  const res = await fetch(`${API_BASE}/api/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ session_id: sessionId, message }),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 60000); // 60s max
 
-  if (!res.ok) throw new Error("Failed to send message");
+  try {
+    const res = await fetch(`${API_BASE}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id: sessionId, message }),
+      signal: controller.signal,
+    });
 
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
+    if (!res.ok) throw new Error("Failed to send message");
 
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let gotDone = false;
 
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split("\n");
-    buffer = lines.pop() || "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
 
-    for (const line of lines) {
-      if (line.startsWith("data: ")) {
-        try {
-          const data = JSON.parse(line.slice(6));
-          if (data.retract && onRetract) {
-            onRetract(data.replacement);
-          } else if (data.token) {
-            onToken(data.token);
-          } else if (data.done) {
-            onDone(data.actions || []);
-          } else if (data.error) {
-            onDone([], data.error);
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+
+      for (const line of lines) {
+        if (line.startsWith("data: ")) {
+          try {
+            const data = JSON.parse(line.slice(6));
+            if (data.retract && onRetract) {
+              onRetract(data.replacement);
+            } else if (data.token) {
+              onToken(data.token);
+            } else if (data.done) {
+              gotDone = true;
+              onDone(data.actions || []);
+            } else if (data.error) {
+              gotDone = true;
+              onDone([], data.error);
+            }
+          } catch {
+            // skip malformed lines
           }
-        } catch {
-          // skip malformed lines
         }
       }
     }
+
+    // If stream ended without a done event, force one
+    if (!gotDone) {
+      onDone([]);
+    }
+  } catch (err) {
+    // Abort or network error — always call onDone so UI unlocks
+    onDone([]);
+  } finally {
+    clearTimeout(timeout);
   }
 }
