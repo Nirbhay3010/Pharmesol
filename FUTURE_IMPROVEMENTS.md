@@ -15,12 +15,12 @@
 - **Analytics dashboard** — call volume, intent distribution, conversion funnel, common objections over time.
 
 ## Framework & Prompt Engineering
-- **LangChain/LangGraph migration** — replace the hand-rolled agent loop with LangGraph for structured state machines, built-in tool orchestration, and easier chaining of multi-step workflows (RAG retrieval → classification → response)
-- **Prompt optimization** — A/B test system prompts, measure conversion rate per prompt variant, compress token usage with few-shot examples, and tune temperature/top-p per conversation stage (lower for tool calls, higher for rapport building)
-- **Model benchmarking** — evaluate different models on quality, latency, tool-calling reliability, and cost per conversation to find the best fit per task
+- **LangChain/LangGraph migration** — replace the hand-rolled agent loop with LangGraph for structured state machines, built-in tool orchestration, and easier chaining of multi-step workflows (RAG retrieval → classification → response).
+- **Prompt optimization** — A/B test system prompts, measure conversion rate per prompt variant, compress token usage with few-shot examples, and tune temperature/top-p per conversation stage (lower for tool calls, higher for rapport building).
+- **Model benchmarking** — evaluate different models on quality, latency, tool-calling reliability, and cost per conversation to find the best fit per task.
 
 ## Production Hardening
-- **Eval suite** — automated test conversations to catch hallucination, prompt injection, and guardrail failures
-- **Persistent sessions** — Redis/SQLite instead of in-memory so sessions survive restarts
-- **Objection playbook** — pre-approved responses for "too expensive", "we already have a system", etc. via RAG
+- **Eval suite** — automated test conversations to catch hallucination, prompt injection, and guardrail failures.
+- **Persistent sessions** — Redis/SQLite instead of in-memory so sessions survive restarts.
+- **Objection playbook** — pre-approved responses for "too expensive", "we already have a system", etc. via RAG.
 
