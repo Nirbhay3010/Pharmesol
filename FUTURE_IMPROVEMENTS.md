@@ -24,4 +24,4 @@
 - **Persistent sessions** — Redis/SQLite instead of in-memory so sessions survive restarts.
 - **Objection playbook** — pre-approved responses for "too expensive", "we already have a system", etc. via RAG.
 - **Memory and Databases** - Add an actual database instead of using JSON here.
-- **Optimization** - Add First time to respond.
+- **Optimization** - Improve First time to respond by streaming.
