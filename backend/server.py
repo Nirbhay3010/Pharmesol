@@ -49,7 +49,7 @@ async def start_session(req: StartRequest):
 
     try:
         pharmacy = await asyncio.to_thread(lookup_by_phone, req.phone)
-        system_prompt = build_system_prompt(pharmacy)
+        system_prompt = build_system_prompt(pharmacy, caller_phone=req.phone)
         agent = SalesAgent(system_prompt, session_id=session_id)
         greeting = await asyncio.to_thread(agent.generate_greeting)
 
@@ -88,6 +88,7 @@ async def chat(req: ChatRequest):
     log.info("chat.message_received", message_length=len(req.message))
 
     async def event_stream():
+        sent_done = False
         try:
             generator = agent.chat_stream(req.message)
 
@@ -102,11 +103,15 @@ async def chat(req: ChatRequest):
                     })
                     yield f"data: {data}\n\n"
                 elif "done" in item:
+                    sent_done = True
                     data = json.dumps({"done": True, "actions": item.get("actions", [])})
                     yield f"data: {data}\n\n"
         except Exception:
             log.exception("chat.stream_error")
             error_data = json.dumps({"error": "An error occurred processing your message."})
             yield f"data: {error_data}\n\n"
+        finally:
+            if not sent_done:
+                yield f"data: {json.dumps({'done': True, 'actions': []})}\n\n"
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")

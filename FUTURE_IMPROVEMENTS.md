@@ -23,4 +23,4 @@
 - **Eval suite** — automated test conversations to catch hallucination, prompt injection, and guardrail failures.
 - **Persistent sessions** — Redis/SQLite instead of in-memory so sessions survive restarts.
 - **Objection playbook** — pre-approved responses for "too expensive", "we already have a system", etc. via RAG.
-
+- **Memory and Databases** - Add an actual database instead of using JSON here.

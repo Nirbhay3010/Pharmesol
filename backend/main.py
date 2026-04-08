@@ -36,7 +36,7 @@ def main():
         print("[SYSTEM] Pharmacy not found in database — new lead.")
 
     # Step 3: Build system prompt and initialize agent
-    system_prompt = build_system_prompt(pharmacy)
+    system_prompt = build_system_prompt(pharmacy, caller_phone=phone)
     agent = SalesAgent(system_prompt, session_id="cli")
 
     # Step 4: Generate and display the opening greeting
